@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: thyself-blocks — CGB Gutenberg Block Plugin
- * Plugin URI: https://github.com/ahmadawais/create-guten-block/
- * Description: thyself-blocks — is a Gutenberg plugin created via create-guten-block.
- * Author: mrahmadawais, maedahbatool
- * Author URI: https://AhmadAwais.com/
+ * Plugin Name: Thyself Blocks - Content Blocks
+ * Plugin URI: https://bitbucket.org/lushkant/thyself-blocks/
+ * Description: Content blocks for building beautiful pages with Thyself theme.
+ * Author: codestag
+ * Author URI: https://codestag.com
  * Version: 1.0.0
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  *
- * @package CGB
+ * @package thyself
  */
 
 // Exit if accessed directly.
