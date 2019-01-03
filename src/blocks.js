@@ -1,12 +1,46 @@
-/**
- * Gutenberg Blocks
- *
- * All blocks related JavaScript files should be imported here.
- * You can create a new block folder in this dir and include code
- * for that block here as well.
- *
- * All blocks should be included here since this is the file that
- * Webpack is compiling as the input file.
- */
+// Get registerBlockType dependency.
+const { registerBlockType } = wp.blocks;
+const { getCategories, setCategories } = wp.blocks;
 
-import './block/block.js';
+// Import icons object.
+import icons from './icons';
+
+/**
+ * Register custom block category.
+ */
+// Category slug & title.
+const category = {
+	slug: 'thyself',
+	title: 'Thyself Blocks',
+};
+setCategories( [
+	{
+		slug: category.slug,
+		title: category.title,
+		icon: icons.logo,
+	},
+	...getCategories().filter( ( { slug } ) => slug !== 'thyself' ),
+] );
+
+/**
+ * Include Gutenberg Blocks.
+ */
+import * as header from './blocks/header';
+
+/**
+ * Register blocks.
+ */
+export function registerBlocks() {
+	[
+		header,
+	].forEach( ( block ) => {
+		if ( ! block ) {
+			return;
+		}
+
+		const { name, settings } = block;
+
+		registerBlockType( `thyself/${ name }`, { category: category.slug, ...settings } );
+	} );
+}
+registerBlocks();
