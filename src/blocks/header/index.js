@@ -9,11 +9,11 @@
 import './styles/style.scss';
 import './styles/editor.scss';
 //  Import componenets.
-import Edit from './components/edit';
+import edit from './components/edit';
 import icons from './../../icons';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
-const { InnerBlocks } = wp.editor;
+const { InnerBlocks, RichText } = wp.editor;
 
 /**
  * Block data.
@@ -30,8 +30,29 @@ const keywords = [
 	__( 'thyself' ),
 ];
 
+const blockAttributes = {
+	heading: {
+		type: 'array',
+		source: 'children',
+		selector: '.wp-block-thyself-header__heading',
+	},
+	content: {
+		type: 'array',
+		source: 'children',
+		selector: '.wp-block-thyself-header__content',
+	},
+	textColor: {
+		type: 'string',
+	},
+	headingSize: {
+		type: 'string',
+	},
+	backgroundColor: {
+		type: 'string',
+	},
+};
+
 const settings = {
-	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: title, // Block title.
 	description: __( 'Add a header block.' ),
 	icon: {
@@ -43,24 +64,16 @@ const settings = {
 		align: [ 'wide', 'full' ],
 		html: false,
 	},
+	attributes: blockAttributes,
 
-	edit: Edit,
+	edit: edit,
 
-	save() {
+	save( props ) {
+		const { attributes } = props;
+		const className = 'wp-block-thyself-header';
 		return (
-			<div>
-				<p>— Hello from the frontend.</p>
-				<p>
-					CGB BLOCK: <code>thyself-blocks</code> is a new Gutenberg block.
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
+			<div className={ className }>
+				<p>Something something</p>
 			</div>
 		);
 	},
