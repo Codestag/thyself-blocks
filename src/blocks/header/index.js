@@ -5,6 +5,9 @@
  * Simple block, renders and saves the same content without any interactivity.
  */
 
+// External dependencies.
+import classnames from 'classnames';
+
 //  Import Styles.
 import './styles/style.scss';
 import './styles/editor.scss';
@@ -13,7 +16,7 @@ import edit from './components/edit';
 import icons from './../../icons';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
-const { InnerBlocks, RichText } = wp.editor;
+const { RichText } = wp.editor;
 
 /**
  * Block data.
@@ -24,11 +27,7 @@ const title = __( 'Header' );
 
 const icon = icons.header;
 
-const keywords = [
-	__( 'heading' ),
-	__( 'text' ),
-	__( 'thyself' ),
-];
+const keywords = [ __( 'heading' ), __( 'text' ), __( 'thyself' ) ];
 
 const blockAttributes = {
 	heading: {
@@ -40,6 +39,23 @@ const blockAttributes = {
 		type: 'array',
 		source: 'children',
 		selector: '.wp-block-thyself-header__content',
+	},
+	btnText: {
+		type: 'array',
+		source: 'children',
+		selector: '.wp-block-thyself-header__link',
+	},
+	btnLink: {
+		type: 'string',
+		source: 'attribute',
+		selector: '.wp-block-thyself-header__link',
+		attribute: 'href',
+	},
+	btnColor: {
+		type: 'string',
+	},
+	btnBackground: {
+		type: 'string',
 	},
 	textColor: {
 		type: 'string',
@@ -73,7 +89,36 @@ const settings = {
 		const className = 'wp-block-thyself-header';
 		return (
 			<div className={ className }>
-				<p>Something something</p>
+				<RichText.Content
+					tagName="h1"
+					value={ attributes.heading }
+					className={ `${ className }__heading` }
+				/>
+				<RichText.Content
+					tagName="p"
+					value={ attributes.content }
+					className={ `${ className }__content` }
+				/>
+
+				{ !! attributes.btnLink && (
+					<a
+						href={ attributes.btnLink }
+						className={ classnames(
+							'wp-block-thyself-header__link',
+							'thyself-button',
+							{
+								'has-background': attributes.btnBackground,
+								'has-text-color': attributes.btnColor,
+							}
+						) }
+						style={ {
+							backgroundColor: attributes.btnBackground,
+							color: attributes.btnColor,
+						} }
+					>
+						{ attributes.btnText }
+					</a>
+				) }
 			</div>
 		);
 	},
