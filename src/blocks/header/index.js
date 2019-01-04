@@ -62,6 +62,7 @@ const blockAttributes = {
 	},
 	headingSize: {
 		type: 'string',
+		default: 35,
 	},
 	backgroundColor: {
 		type: 'string',
