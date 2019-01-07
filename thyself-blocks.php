@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Thyself Blocks - Content Blocks
- * Plugin URI: https://bitbucket.org/lushkant/thyself-blocks/
+ * Plugin URI: https://bitbucket.org/codestag/thyself-blocks/
  * Description: Content blocks for building beautiful pages with Thyself theme.
  * Author: codestag
  * Author URI: https://codestag.com
