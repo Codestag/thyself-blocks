@@ -64,6 +64,10 @@ const blockAttributes = {
 		type: 'number',
 		default: 80,
 	},
+	contentSize: {
+		type: 'number',
+		default: 19,
+	},
 	backgroundColor: {
 		type: 'string',
 	},
@@ -133,6 +137,7 @@ const settings = {
 									tagName="p"
 									value={ attributes.content }
 									className={ `${ className }__content` }
+									style={ { fontSize: attributes.contentSize } }
 								/>
 
 								{ !! attributes.btnLink && (
@@ -152,6 +157,7 @@ const settings = {
 											backgroundColor:
 												attributes.btnBackground,
 											color: attributes.btnColor,
+											fontSize: attributes.contentSize,
 										} }
 									>
 										{ attributes.btnText }

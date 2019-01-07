@@ -88,6 +88,7 @@ const edit = props => {
 									onChange={ value =>
 										setAttributes( { content: value } )
 									}
+									style={ { fontSize: attributes.contentSize } }
 								/>
 								<RichText
 									tagName="span"
@@ -99,6 +100,7 @@ const edit = props => {
 									style={ {
 										backgroundColor: attributes.btnBackground,
 										color: attributes.btnColor,
+										fontSize: attributes.contentSize,
 									} }
 									keepPlaceholderOnFocus
 									className={ classnames(

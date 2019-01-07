@@ -15,18 +15,28 @@ const Controls = props => {
 	return (
 		<Fragment>
 			<InspectorControls>
-				<PanelBody>
+				<PanelBody
+					title={ __( 'Text Settings' ) }
+					className="blocks-font-size"
+				>
 					<RangeControl
 						label={ __( 'Heading Font Size (in px)' ) }
 						initialPosition={ attributes.headingSize }
 						value={ attributes.headingSize || '' }
 						min={ 10 }
 						max={ 200 }
-						onChange={ size =>
-							setAttributes( { headingSize: size } )
-						}
-						beforeIcon="size"
+						onChange={ size => setAttributes( { headingSize: size } ) }
 					/>
+					<RangeControl
+						label={ __( 'Content Font Size (in px)' ) }
+						initialPosition={ attributes.contentSize }
+						value={ attributes.contentSize || '' }
+						min={ 1 }
+						max={ 200 }
+						onChange={ size => setAttributes( { contentSize: size } ) }
+					/>
+				</PanelBody>
+				<PanelBody title={ __( 'Background Settings' ) }>
 					<RangeControl
 						label={ __( 'Background Box Opacity' ) }
 						initialPosition={ attributes.bgBoxOpacity }
@@ -34,9 +44,7 @@ const Controls = props => {
 						min={ 0.1 }
 						max={ 1.0 }
 						step={ 0.1 }
-						onChange={ size =>
-							setAttributes( { bgBoxOpacity: size } )
-						}
+						onChange={ size => setAttributes( { bgBoxOpacity: size } ) }
 						beforeIcon="visibility"
 					/>
 				</PanelBody>
