@@ -25,14 +25,14 @@ setCategories( [
 /**
  * Include Gutenberg Blocks.
  */
-import * as header from './blocks/header';
+import * as intro from './blocks/intro';
 
 /**
  * Register blocks.
  */
 export function registerBlocks() {
 	[
-		header,
+		intro,
 	].forEach( ( block ) => {
 		if ( ! block ) {
 			return;
