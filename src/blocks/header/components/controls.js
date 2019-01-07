@@ -17,7 +17,7 @@ const Controls = props => {
 			<InspectorControls>
 				<PanelBody>
 					<RangeControl
-						label={ __( 'Heading font size' ) }
+						label={ __( 'Heading Font Size (in px)' ) }
 						initialPosition={ attributes.headingSize }
 						value={ attributes.headingSize || '' }
 						min={ 10 }
@@ -26,6 +26,18 @@ const Controls = props => {
 							setAttributes( { headingSize: size } )
 						}
 						beforeIcon="size"
+					/>
+					<RangeControl
+						label={ __( 'Background Box Opacity' ) }
+						initialPosition={ attributes.bgBoxOpacity }
+						value={ attributes.bgBoxOpacity || '' }
+						min={ 0.1 }
+						max={ 1.0 }
+						step={ 0.1 }
+						onChange={ size =>
+							setAttributes( { bgBoxOpacity: size } )
+						}
+						beforeIcon="visibility"
 					/>
 				</PanelBody>
 				<PanelColorSettings
@@ -42,6 +54,12 @@ const Controls = props => {
 							onChange: backgroundColor =>
 								setAttributes( { backgroundColor } ),
 							label: __( 'Background Color' ),
+						},
+						{
+							value: attributes.bgBoxColor,
+							onChange: bgBoxColor =>
+								setAttributes( { bgBoxColor } ),
+							label: __( 'Background Box Color' ),
 						},
 						{
 							value: attributes.btnColor,
