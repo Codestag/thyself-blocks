@@ -1,7 +1,6 @@
 // WordPress Dependencies.
 const { __ } = wp.i18n;
 const { Fragment } = wp.element;
-const { PanelBody, RangeControl } = wp.components;
 const { InspectorControls, PanelColorSettings } = wp.editor;
 
 /**

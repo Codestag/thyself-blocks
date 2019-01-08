@@ -9,8 +9,8 @@ import Controls from './controls.js';
  */
 const { __ } = wp.i18n;
 const { Fragment } = wp.element;
-const { BlockControls, RichText, MediaUpload, URLInput } = wp.editor;
-const { Toolbar, IconButton, Dashicon } = wp.components;
+const { MediaUpload } = wp.editor;
+const { Button, Dashicon } = wp.components;
 
 /**
  * Block edit function.
@@ -18,17 +18,49 @@ const { Toolbar, IconButton, Dashicon } = wp.components;
  * @returns {object} Block edit source
  */
 const edit = props => {
-	const { attributes, className, isSelected, setAttributes } = props;
+	const { attributes, className, setAttributes } = props;
+	const containerClass = 'wp-block-thyself-section';
 
 	return (
 		<Fragment>
 			<Controls { ...props } />
-			<BlockControls>
-				<Toolbar>
-				</Toolbar>
-			</BlockControls>
 
-			<div className={ className } >
+			<div
+				className={ className }
+				style={ {
+					backgroundColor: attributes.backgroundColor,
+					color: attributes.textColor,
+				} }
+			>
+				<div className={ `${ containerClass }__content` }>
+					<p>Something</p>
+				</div>
+				<div
+					className={ `${ containerClass }__image` }
+					style={ {
+						backgroundImage: `url(${ attributes.imageURL })`,
+					} }
+				>
+					<MediaUpload
+						onSelect={ media => {
+							setAttributes( {
+								imageID: media.id,
+								imageURL: media.url,
+							} );
+						} }
+						type="image"
+						value={ attributes.imageID }
+						render={ ( { open } ) => (
+							<Button onClick={ open }>
+								{ ! attributes.imageID ? (
+									<Dashicon icon="format-image" />
+								) : (
+									<Dashicon icon="edit" />
+								) }
+							</Button>
+						) }
+					/>
+				</div>
 			</div>
 		</Fragment>
 	);

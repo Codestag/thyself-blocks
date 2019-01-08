@@ -16,7 +16,6 @@ import edit from './components/edit';
 import icons from './../../icons';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
-const { RichText } = wp.editor;
 
 /**
  * Block data.
@@ -42,11 +41,9 @@ const blockAttributes = {
 	},
 	backgroundColor: {
 		type: 'string',
-		default: '#4F4F4F',
 	},
 	textColor: {
 		type: 'string',
-		default: '#ffffff',
 	},
 };
 
@@ -72,9 +69,23 @@ const settings = {
 	save( props ) {
 		const { attributes } = props;
 		const className = 'wp-block-thyself-section';
+		const containerClass = 'wp-block-thyself-section';
 		return (
-			<div className={ className } >
-
+			<div
+				className={ className }
+				style={ {
+					backgroundColor: attributes.backgroundColor,
+					color: attributes.textColor,
+				} }
+			>
+				<div className={ `${ containerClass }__content` }>
+					<p>Something</p>
+				</div>
+				{ attributes.imageURL && (
+					<div className={ `${ containerClass }__image` }>
+						<img src={ attributes.imageURL } alt="" />
+					</div>
+				) }
 			</div>
 		);
 	},
