@@ -9,7 +9,7 @@ import Controls from './controls.js';
  */
 const { __ } = wp.i18n;
 const { Fragment } = wp.element;
-const { MediaUpload } = wp.editor;
+const { MediaUpload, InnerBlocks } = wp.editor;
 const { Button, Dashicon } = wp.components;
 
 /**
@@ -33,7 +33,7 @@ const edit = props => {
 				} }
 			>
 				<div className={ `${ containerClass }__content` }>
-					<p>Something</p>
+					<InnerBlocks />
 				</div>
 				<div
 					className={ `${ containerClass }__image` }

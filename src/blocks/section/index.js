@@ -16,6 +16,7 @@ import edit from './components/edit';
 import icons from './../../icons';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
+const { InnerBlocks } = wp.editor;
 
 /**
  * Block data.
@@ -79,7 +80,7 @@ const settings = {
 				} }
 			>
 				<div className={ `${ containerClass }__content` }>
-					<p>Something</p>
+					<InnerBlocks.Content />
 				</div>
 				{ attributes.imageURL && (
 					<div className={ `${ containerClass }__image` }>
