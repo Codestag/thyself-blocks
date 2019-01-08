@@ -1,15 +1,11 @@
-// Import external dependencies.
-import classnames from 'classnames';
-
 // Import local components.
 import Controls from './controls.js';
 
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
 const { Fragment } = wp.element;
-const { MediaUpload, InnerBlocks } = wp.editor;
+const { InnerBlocks, MediaUpload } = wp.editor;
 const { Button, Dashicon } = wp.components;
 
 /**
@@ -18,7 +14,7 @@ const { Button, Dashicon } = wp.components;
  * @returns {object} Block edit source
  */
 const edit = props => {
-	const { attributes, className, setAttributes } = props;
+	const { attributes, className, setAttributes, insertBlocksAfter } = props;
 	const containerClass = 'wp-block-thyself-section';
 
 	return (
@@ -33,7 +29,7 @@ const edit = props => {
 				} }
 			>
 				<div className={ `${ containerClass }__content` }>
-					<InnerBlocks />
+					{ ( typeof insertBlocksAfter !== 'undefined' ) ? <InnerBlocks /> : '' }
 				</div>
 				<div
 					className={ `${ containerClass }__image` }

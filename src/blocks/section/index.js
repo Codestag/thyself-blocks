@@ -36,10 +36,6 @@ const blockAttributes = {
 	imageID: {
 		type: 'number',
 	},
-	showImage: {
-		type: 'boolean',
-		default: true,
-	},
 	backgroundColor: {
 		type: 'string',
 	},
@@ -68,7 +64,7 @@ const settings = {
 	edit: edit,
 
 	save( props ) {
-		const { attributes } = props;
+		const { attributes, insertBlocksAfter } = props;
 		const className = 'wp-block-thyself-section';
 		const containerClass = 'wp-block-thyself-section';
 		return (
