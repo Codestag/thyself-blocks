@@ -1,10 +1,8 @@
 .wp-block-thyself-section {
+	display: flex;
+	flex-direction: column;
 	@include media($breakpoint__md) {
-		display: flex;
-
-		> div {
-			order: 1;
-		}
+		flex-direction: row;
 		> div:nth-child(1) {
 			width: 50%;
 		}
@@ -13,20 +11,25 @@
 		}
 	}
 
+	> div {
+		order: 1;
+	}
 	&.is-style-flip .wp-block-thyself-section__content {
 		order: 2;
 	}
 }
 
+
+
 .wp-block-thyself-section__content {
-	padding: 0 25px 10px;
+	padding: 10px 25px;
 }
 
 .wp-block-thyself-section__image {
 	position: relative;
 	background-size: cover;
 	background-position: center;
-	min-height: 350px;
+	min-height: 150px;
 
 	> img {
 		width: 100%;
