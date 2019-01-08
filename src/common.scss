@@ -5,9 +5,36 @@
  * that are used across the project.
 */
 
-// Colors.
-$black: rgb(41, 41, 41);
-$white: #f4f4f4;
-$gray: #dedede;
-$green: #bada55;
-$red: orangered;
+// Breakpoints.
+$breakpoint__sm: 480px;
+$breakpoint__md: 800px;
+$breakpoint__lg: 1000px;
+$breakpoint__xl: 1200px;
+
+$black: #1d1d1f;
+
+$default-feature: min-width; // Default @media feature for the breakpoint() mixin
+
+@mixin media( $query: $feature $value ) {
+	@if length($query) == 1 {
+		@media screen and ($default-feature: nth($query, 1)) {
+			@content;
+		}
+	}
+
+	@else if length($query) == 2 {
+		@media screen and (nth($query, 1): nth($query, 2)) {
+			@content;
+		}
+	}
+
+	@else if length($query) == 4 {
+		@media screen and (nth($query, 1): nth($query, 2)) and (nth($query, 3): nth($query, 4)) {
+			@content;
+		}
+	}
+
+	@else {
+		@warn "Wrong number of arguments for breakpoint(). Read the documentation for more details.";
+	}
+}
