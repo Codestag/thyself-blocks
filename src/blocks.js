@@ -17,7 +17,6 @@ setCategories( [
 	{
 		slug: category.slug,
 		title: category.title,
-		icon: icons.logo,
 	},
 	...getCategories().filter( ( { slug } ) => slug !== 'thyself' ),
 ] );
@@ -26,6 +25,8 @@ setCategories( [
  * Include Gutenberg Blocks.
  */
 import * as intro from './blocks/intro';
+import * as posts from './blocks/posts';
+import * as section from './blocks/section';
 
 /**
  * Register blocks.
@@ -33,6 +34,8 @@ import * as intro from './blocks/intro';
 export function registerBlocks() {
 	[
 		intro,
+		posts,
+		section,
 	].forEach( ( block ) => {
 		if ( ! block ) {
 			return;
