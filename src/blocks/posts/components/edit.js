@@ -60,6 +60,7 @@ class PostsGridEdit extends Component {
 			displayPostExcerpt,
 			displayReadMore,
 			displayFeaturedImage,
+			displayCategories,
 			readMoreText,
 			align,
 			postLayout,
@@ -99,6 +100,11 @@ class PostsGridEdit extends Component {
 						label={ __( 'Display Featured Image' ) }
 						checked={ displayFeaturedImage }
 						onChange={ () => this.toggleState( 'displayFeaturedImage' ) }
+					/>
+					<ToggleControl
+						label={ __( 'Display Post Categories' ) }
+						checked={ displayCategories }
+						onChange={ () => this.toggleState( 'displayCategories' ) }
 					/>
 					<ToggleControl
 						label={ __( 'Display Read More Link' ) }
@@ -213,6 +219,10 @@ class PostsGridEdit extends Component {
 									}
 								</div>
 
+								{ ( post[ 'thyself/category_data' ] ) && ( attributes.displayCategories ) && (
+									<div className={ `${ this.props.className }__categories` } dangerouslySetInnerHTML={ { __html: post[ 'thyself/category_data' ] } } />
+								) }
+
 							</div>
 						</li>
 					)
@@ -241,6 +251,7 @@ export default withSelect( ( select, props ) => {
 			'excerpt',
 			'featured_media',
 			'thyself/featured_image_src',
+			'thyself/category_data',
 		],
 	}, ( value ) => ! isUndefined( value ) );
 
