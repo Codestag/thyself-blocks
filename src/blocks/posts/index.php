@@ -1,6 +1,6 @@
 <?php
 /**
- * Server-side rendering of the `sgb/posts-grid` block.
+ * Server-side rendering of the `thyself/posts` block.
  *
  * @package thyself
  */
@@ -106,7 +106,7 @@ function render_block_thyself_posts( $attributes ) {
 		$show_featured = $attributes['displayFeaturedImage'];
 
 		if ( ! $title ) {
-			$title = __( '(Untitled)', 'sgb' );
+			$title = __( '(Untitled)', 'thyself' );
 		}
 
 		// Display the post thumbnail.
