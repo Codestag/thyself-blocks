@@ -44,7 +44,7 @@ function register_block_thyself_posts() {
 				),
 				'readMoreText'         => array(
 					'type'    => 'string',
-					'default' => false,
+					'default' => '..',
 				),
 				'postLayout'           => array(
 					'type'    => 'string',
@@ -140,10 +140,18 @@ function render_block_thyself_posts( $attributes ) {
 		$list_items_markup .= '<div class="wp-block-thyself-posts__meta">' . $date_markup . '</div>';
 
 		if ( isset( $attributes['displayPostExcerpt'] ) && $attributes['displayPostExcerpt'] ) {
-			$excerpt = get_post_field( 'post_excerpt', $post_id );
+			$excerpt = sprintf( '<p class="wp-block-thyself-posts__excerpt">%1$s &nbsp;', get_post_field( 'post_excerpt', $post_id ) );
 
 			if ( empty( $excerpt ) ) {
-				$excerpt = wp_trim_words( $post->post_content, 55 );
+				$excerpt = sprintf( '<p class="wp-block-thyself-posts__excerpt">%1$s &nbsp;', wp_trim_words( $post->post_content, 55 ) );
+			}
+
+			if ( isset( $attributes['displayReadMore'] ) && $attributes['displayReadMore'] ) {
+				$excerpt .= sprintf(
+					'<a class="wp-block-thyself-posts__read-more" href="%1$s" rel="bookmark">%2$s</a></p>',
+					get_permalink( $post_id ),
+					$attributes['readMoreText']
+				);
 			}
 
 			if ( ! $excerpt ) {
@@ -152,18 +160,12 @@ function render_block_thyself_posts( $attributes ) {
 
 			if ( ! empty( $excerpt ) ) {
 				$list_items_markup .= sprintf(
-					'<div class="wp-block-thyself-posts__excerpt">%1$s</div>',
+					'<div class="wp-block-thyself-posts__summary">%1$s</div>',
 					$excerpt
 				);
 			}
 		}
 
-		if ( isset( $attributes['displayReadMore'] ) && $attributes['displayReadMore'] ) {
-			$list_items_markup .= sprintf(
-				'<p class="wp-block-thyself-posts__read-more"><a href="%1$s" rel="bookmark">%2$s</a></p>',
-				get_permalink( $post_id ),
-				$attributes['readMoreText']
-			);
 		}
 
 		// Close .wp-block-thyself-posts__content container.
