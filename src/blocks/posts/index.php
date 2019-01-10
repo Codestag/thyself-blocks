@@ -5,71 +5,71 @@
  * @package thyself
  */
 
-if ( ! function_exists( 'register_block_type' ) ) return;
+if ( ! function_exists( 'register_block_type' ) ) {
+	return;
+}
 
 /**
  * Registers the `thyself/posts` block on server.
  */
 function register_block_thyself_posts() {
-	register_block_type( 'thyself/posts', array(
-		'attributes' => array(
-			'categories'      => array(
-				'type' => 'string',
+	register_block_type(
+		'thyself/posts', array(
+			'attributes'      => array(
+				'categories'           => array(
+					'type' => 'string',
+				),
+				'className'            => array(
+					'type' => 'string',
+				),
+				'postsToShow'          => array(
+					'type'    => 'number',
+					'default' => 5,
+				),
+				'displayPostDate'      => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
+				'displayPostExcerpt'   => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
+				'displayReadMore'      => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'displayFeaturedImage' => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
+				'readMoreText'         => array(
+					'type'    => 'string',
+					'default' => false,
+				),
+				'postLayout'           => array(
+					'type'    => 'string',
+					'default' => 'list',
+				),
+				'columns'              => array(
+					'type'    => 'number',
+					'default' => 2,
+				),
+				'align'                => array(
+					'type'    => 'string',
+					'default' => 'wide',
+				),
+				'order'                => array(
+					'type'    => 'string',
+					'default' => 'desc',
+				),
+				'orderBy'              => array(
+					'type'    => 'string',
+					'default' => 'date',
+				),
 			),
-			'className'       => array(
-				'type' => 'string',
-			),
-			'postsToShow'     => array(
-				'type'    => 'number',
-				'default' => 5,
-			),
-			'displayPostDate' => array(
-				'type'    => 'boolean',
-				'default' => true,
-			),
-			'displayPostExcerpt' => array(
-				'type'    => 'boolean',
-				'default' => true,
-			),
-			'displayReadMore' => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'displayFeaturedImage' => array(
-				'type'    => 'boolean',
-				'default' => true,
-			),
-			'displayPostAuthor' => array(
-				'type'    => 'boolean',
-				'default' => true,
-			),
-			'readMoreText' => array(
-				'type'    => 'string',
-				'default' => false,
-			),
-			'postLayout'      => array(
-				'type'    => 'string',
-				'default' => 'list',
-			),
-			'columns'         => array(
-				'type'    => 'number',
-				'default' => 2,
-			),
-			'align'           => array(
-				'type'    => 'string',
-				'default' => 'center',
-			),
-			'order'           => array(
-				'type'    => 'string',
-				'default' => 'desc',
-			),
-			'orderBy'         => array(
-				'type'    => 'string',
-				'default' => 'date',
-			),
-		),
-		'render_callback' => 'render_block_thyself_posts',
-	) );
+			'render_callback' => 'render_block_thyself_posts',
+		)
+	);
 }
 
 add_action( 'init', 'register_block_thyself_posts' );
@@ -82,15 +82,15 @@ add_action( 'init', 'register_block_thyself_posts' );
  * @return string Returns the post content with latest posts added.
  */
 function render_block_thyself_posts( $attributes ) {
-	$recent_posts = wp_get_recent_posts( array(
-		'numberposts' => $attributes['postsToShow'],
-		'post_status' => 'publish',
-		'order'       => $attributes['order'],
-		'orderby'     => $attributes['orderBy'],
-		'category'    => isset( $attributes['categories'] ) ? $attributes['categories'] : false,
-	), 'OBJECT' );
-
-
+	$recent_posts = wp_get_recent_posts(
+		array(
+			'numberposts' => $attributes['postsToShow'],
+			'post_status' => 'publish',
+			'order'       => $attributes['order'],
+			'orderby'     => $attributes['orderBy'],
+			'category'    => isset( $attributes['categories'] ) ? $attributes['categories'] : false,
+		), 'OBJECT'
+	);
 
 	$list_items_markup = '';
 
@@ -137,18 +137,7 @@ function render_block_thyself_posts( $attributes ) {
 			);
 		}
 
-		$list_items_markup .= sprintf(
-			'<div class="wp-block-thyself-posts__meta">
-			' . $date_markup . '
-			<a href="%1$s" class="wp-block-thyself-posts__author">
-			%2$s
-			<span>%3$s</span>
-			</a>
-			</div>',
-			get_author_posts_url( $author_id ),
-			get_avatar( $author_id, '96' ),
-			get_the_author_meta( 'display_name', $author_id )
-		);
+		$list_items_markup .= '<div class="wp-block-thyself-posts__meta">' . $date_markup . '</div>';
 
 		if ( isset( $attributes['displayPostExcerpt'] ) && $attributes['displayPostExcerpt'] ) {
 			$excerpt = get_post_field( 'post_excerpt', $post_id );
@@ -183,10 +172,6 @@ function render_block_thyself_posts( $attributes ) {
 
 	$class = "wp-block-thyself-posts align{$attributes['align']} is-{$attributes['postLayout']} columns-{$attributes['columns']}";
 
-	if ( ! $attributes['displayPostAuthor'] ) {
-		$class .= ' hide-author';
-	}
-
 	$block_content = sprintf(
 		'<ul class="%1$s">%2$s</ul>',
 		esc_attr( $class ),
@@ -213,20 +198,6 @@ function block_thyself_posts_rest_fields() {
 					false
 				);
 				return $image_array[0];
-			},
-		)
-	);
-
-	register_rest_field(
-		'post',
-		'thyself/author_data',
-		array(
-			'get_callback' => function( $object ) {
-				$author_data['display_name'] = get_the_author_meta( 'display_name', $object['author'] );
-				$author_data['avatar']       = get_avatar_url( $object['author'] );
-				$author_data['author_link']  = get_author_posts_url( $object['author'] );
-
-				return $author_data;
 			},
 		)
 	);

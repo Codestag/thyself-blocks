@@ -60,7 +60,6 @@ class PostsGridEdit extends Component {
 			displayPostExcerpt,
 			displayReadMore,
 			displayFeaturedImage,
-			displayPostAuthor,
 			readMoreText,
 			align,
 			postLayout,
@@ -97,11 +96,6 @@ class PostsGridEdit extends Component {
 						onChange={ () => this.toggleState( 'displayPostExcerpt' ) }
 					/>
 					<ToggleControl
-						label={ __( 'Display Post Author' ) }
-						checked={ displayPostAuthor }
-						onChange={ () => this.toggleState( 'displayPostAuthor' ) }
-					/>
-					<ToggleControl
 						label={ __( 'Display Featured Image' ) }
 						checked={ displayFeaturedImage }
 						onChange={ () => this.toggleState( 'displayFeaturedImage' ) }
@@ -123,7 +117,7 @@ class PostsGridEdit extends Component {
 							label={ __( 'Columns' ) }
 							value={ columns }
 							onChange={ ( value ) => setAttributes( { columns: value } ) }
-							min={ 2 }
+							min={ 1 }
 							max={ ! hasPosts ? MAX_POSTS_COLUMNS : Math.min( MAX_POSTS_COLUMNS, latestPosts.length ) }
 						/>
 					}
@@ -207,29 +201,16 @@ class PostsGridEdit extends Component {
 									{ displayPostDate && post.date_gmt &&
 									<time dateTime={ moment( post.date_gmt ).utc().format() } className={ `${ this.props.className }__post-date` }>
 										{ moment( post.date_gmt ).local().format( 'MMMM DD, Y' ) }
-									</time>
-									}
-									{ displayPostAuthor &&
-										<a
-											href={ post[ 'thyself/author_data' ].author_link }
-											className={ `${ this.props.className }__author` }
-											target="_blank" rel="noopener noreferrer"
-										>
-											<img src={ post[ 'thyself/author_data' ].avatar } alt={ post[ 'thyself/author_data' ].display_name } />
-											<span>{ post[ 'thyself/author_data' ].display_name }</span>
-										</a>
-									}
+									</time> }
 								</div>
 
 								{ displayPostExcerpt && post.excerpt.rendered &&
 								<div className={ `${ this.props.className }__excerpt` } dangerouslySetInnerHTML={ { __html: post.excerpt.rendered } } />
 								}
-
 								{ displayReadMore &&
 									<p className={ `${ this.props.className }__read-more` }>
-										<a href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( readMoreText ) || __( 'Continue Reading →' ) }</a>
-									</p>
-								}
+										<a href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( readMoreText ) || __( '..' ) }</a>
+									</p> }
 							</div>
 						</li>
 					)
@@ -257,9 +238,7 @@ export default withSelect( ( select, props ) => {
 			'title',
 			'excerpt',
 			'featured_media',
-			'author',
 			'thyself/featured_image_src',
-			'thyself/author_data',
 		],
 	}, ( value ) => ! isUndefined( value ) );
 
