@@ -2,7 +2,7 @@
 /**
  * Blocks Initializer
  *
- * Enqueue CSS/JS of all the blocks.
+ * Enqueue CSS/JS/PHP of all the blocks.
  *
  * @since   1.0.0
  * @package thyself
@@ -62,3 +62,18 @@ function thyself_blocks_editor_assets() { // phpcs:ignore
 
 // Hook: Editor assets.
 add_action( 'enqueue_block_editor_assets', 'thyself_blocks_editor_assets' );
+
+// Register server-side code for individual blocks.
+foreach ( glob( dirname( dirname( __FILE__ ) ) . '/src/blocks/*/index.php' ) as $block_logic ) {
+	require_once $block_logic;
+}
+
+/**
+ * Plugin localization.
+ *
+ * @return void
+ */
+function thyself_load_textdomain() {
+	load_plugin_textdomain( 'sgb', false, plugin_dir_path( __DIR__ ) . '/languages' );
+}
+add_action( 'plugins_loaded', 'thyself_load_textdomain' );
