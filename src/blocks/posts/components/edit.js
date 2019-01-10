@@ -118,7 +118,7 @@ class PostsGridEdit extends Component {
 							onChange={ ( nextValue ) => this.handleReadMoreText( nextValue ) }
 						/>
 					}
-					{ postLayout === 'vertical' &&
+					{ postLayout !== '' &&
 						<RangeControl
 							label={ __( 'Columns' ) }
 							value={ columns }
@@ -187,7 +187,7 @@ class PostsGridEdit extends Component {
 					className={ classnames( this.props.className, {
 						'is-horizontal': postLayout === 'horizontal',
 						'is-vertical': postLayout === 'vertical',
-						[ `columns-${ columns }` ]: postLayout === 'vertical',
+						[ `columns-${ columns }` ]: postLayout !== '',
 					} ) }
 				>
 					{ displayPosts.map( ( post, i ) => (
