@@ -42,6 +42,10 @@ function register_block_thyself_posts() {
 					'type'    => 'boolean',
 					'default' => true,
 				),
+				'displayCategories' => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
 				'readMoreText'         => array(
 					'type'    => 'string',
 					'default' => '..',
@@ -166,6 +170,10 @@ function render_block_thyself_posts( $attributes ) {
 			}
 		}
 
+		if ( isset( $attributes['displayCategories'] ) && $attributes['displayCategories'] ) {
+			$categories_list = get_the_category_list( esc_html__( ', ', 'thyself' ) );
+
+			$list_items_markup .= '<div class="wp-block-thyself-posts__categories">' . $categories_list . '</div>';
 		}
 
 		// Close .wp-block-thyself-posts__content container.
@@ -200,6 +208,17 @@ function block_thyself_posts_rest_fields() {
 					false
 				);
 				return $image_array[0];
+			},
+		)
+	);
+
+	register_rest_field(
+		'post',
+		'thyself/category_data',
+		array(
+			'get_callback' => function( $object ) {
+				$category_data[] = get_the_category_list( esc_html__( ', ', 'thyself' ) );
+				return $category_data;
 			},
 		)
 	);
