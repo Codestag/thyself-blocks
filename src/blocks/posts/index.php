@@ -56,7 +56,7 @@ function register_block_thyself_posts() {
 				),
 				'align'                => array(
 					'type'    => 'string',
-					'default' => 'wide',
+					'default' => '',
 				),
 				'order'                => array(
 					'type'    => 'string',
