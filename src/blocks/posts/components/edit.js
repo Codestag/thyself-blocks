@@ -211,10 +211,10 @@ class PostsGridEdit extends Component {
 								</div>
 
 								<div className={ `${ this.props.className }__summary` }>
-									{ displayPostExcerpt && post.excerpt.rendered &&
+									{ displayPostExcerpt && post.excerpt.raw &&
 									<p className={ `${ this.props.className }__excerpt` }>
-										{ post.excerpt.rendered }
-										<a className={ `${ this.props.className }__read-more` } href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( readMoreText ) || __( '..' ) }</a>
+										{ post.excerpt.raw }&nbsp;
+										{ displayReadMore && readMoreText && ( <a className={ `${ this.props.className }__read-more` } href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( readMoreText ) || __( '..' ) }</a> ) }
 									</p>
 									}
 								</div>
