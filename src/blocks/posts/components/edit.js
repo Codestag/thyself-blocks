@@ -204,13 +204,15 @@ class PostsGridEdit extends Component {
 									</time> }
 								</div>
 
-								{ displayPostExcerpt && post.excerpt.rendered &&
-								<div className={ `${ this.props.className }__excerpt` } dangerouslySetInnerHTML={ { __html: post.excerpt.rendered } } />
-								}
-								{ displayReadMore &&
-									<p className={ `${ this.props.className }__read-more` }>
-										<a href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( readMoreText ) || __( '..' ) }</a>
-									</p> }
+								<div className={ `${ this.props.className }__summary` }>
+									{ displayPostExcerpt && post.excerpt.rendered &&
+									<p className={ `${ this.props.className }__excerpt` }>
+										{ post.excerpt.rendered }
+										<a className={ `${ this.props.className }__read-more` } href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( readMoreText ) || __( '..' ) }</a>
+									</p>
+									}
+								</div>
+
 							</div>
 						</li>
 					)
