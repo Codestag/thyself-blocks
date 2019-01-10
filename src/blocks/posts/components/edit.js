@@ -10,7 +10,7 @@ const { __ } = wp.i18n;
 const { Component, Fragment } = wp.element;
 const { decodeEntities } = wp.htmlEntities;
 const { withSelect } = wp.data;
-const { InspectorControls, BlockAlignmentToolbar, BlockControls } = wp.editor;
+const { InspectorControls, BlockAlignmentToolbar, BlockControls, MediaUpload, PanelColorSettings } = wp.editor;
 const {
 	PanelBody,
 	Placeholder,
@@ -20,7 +20,7 @@ const {
 	Spinner,
 	ToggleControl,
 	Toolbar,
-	withAPIData,
+	IconButton,
 } = wp.components;
 
 const MAX_POSTS_COLUMNS = 4;
@@ -69,13 +69,25 @@ class PostsGridEdit extends Component {
 			orderBy,
 			categories,
 			postsToShow,
+			bgColor,
+			bgImgURL,
+			bgOpacity,
+			imgId,
 		} = attributes;
 
 		const hasPosts = Array.isArray( latestPosts ) && latestPosts.length;
 
+		const onSelectImage = media => {
+			if ( ! media || ! media.url ) {
+				setAttributes( { bgImgURL: undefined, imgID: undefined } );
+				return;
+			}
+			setAttributes( { bgImgURL: media.url, imgID: media.id } );
+		};
+
 		const inspectorControls = (
 			<InspectorControls>
-				<PanelBody title={ __( 'Posts Grid Settings' ) }>
+				<PanelBody title={ __( 'Posts Settings' ) }>
 					<QueryControls
 						{ ...{ order, orderBy } }
 						numberOfItems={ postsToShow }
@@ -127,7 +139,30 @@ class PostsGridEdit extends Component {
 							max={ ! hasPosts ? MAX_POSTS_COLUMNS : Math.min( MAX_POSTS_COLUMNS, latestPosts.length ) }
 						/>
 					}
+					{ bgImgURL !== '' &&
+						<RangeControl
+							label={ __( 'Background Opacity' ) }
+							value={ bgOpacity }
+							onChange={ ( value ) => setAttributes( { bgOpacity: value } ) }
+							min={ 0.1 }
+							max={ 1.0 }
+							step={ 0.1 }
+						/>
+					}
 				</PanelBody>
+
+				<PanelColorSettings
+					title={ __( 'Color Settings' ) }
+					initialOpen={ false }
+					colorSettings={ [
+						{
+							value: attributes.bgColor,
+							onChange: value => setAttributes( { bgColor: value } ),
+							label: __( 'Background Color' ),
+						},
+					] }
+				/>
+
 			</InspectorControls>
 		);
 
@@ -180,54 +215,80 @@ class PostsGridEdit extends Component {
 						} }
 						controls={ [ 'wide', 'full' ] }
 					/>
-					<Toolbar controls={ layoutControls } />
+					<Toolbar controls={ layoutControls } >
+						<MediaUpload
+							onSelect={ onSelectImage }
+							type="image"
+							value={ attributes.imgID }
+							render={ ( { open } ) => (
+								<IconButton
+									className="components-toolbar__control"
+									label={ __( 'Edit background' ) }
+									icon="edit"
+									onClick={ open }
+								/>
+							) }
+						/>
+					</Toolbar>
 				</BlockControls>
 
-				<ul
-					className={ classnames( this.props.className, {
-						'is-horizontal': postLayout === 'horizontal',
-						'is-vertical': postLayout === 'vertical',
-						[ `columns-${ columns }` ]: postLayout !== '',
-					} ) }
-				>
-					{ displayPosts.map( ( post, i ) => (
-						<li key={ i }>
-							{ ( post[ 'thyself/featured_image_src' ] ) && ( attributes.displayFeaturedImage ) && (
-								<figure className={ `${ this.props.className }__thumbnail` }>
-									<img src={ post[ 'thyself/featured_image_src' ] } alt={ decodeEntities( post.title.rendered.trim() ) } />
-								</figure>
-							) }
-
-							<div className={ `${ this.props.className }__content` }>
-								<h3 className={ `${ this.props.className }__title` }>
-									<a href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( post.title.rendered.trim() ) || __( '(Untitled)' ) }</a>
-								</h3>
-
-								<div className={ `${ this.props.className }__meta` }>
-									{ displayPostDate && post.date_gmt &&
-									<time dateTime={ moment( post.date_gmt ).utc().format() } className={ `${ this.props.className }__post-date` }>
-										{ moment( post.date_gmt ).local().format( 'MMMM DD, Y' ) }
-									</time> }
-								</div>
-
-								<div className={ `${ this.props.className }__summary` }>
-									{ displayPostExcerpt && post.excerpt.raw &&
-									<p className={ `${ this.props.className }__excerpt` }>
-										{ post.excerpt.raw }&nbsp;
-										{ displayReadMore && readMoreText && ( <a className={ `${ this.props.className }__read-more` } href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( readMoreText ) || __( '..' ) }</a> ) }
-									</p>
-									}
-								</div>
-
-								{ ( post[ 'thyself/category_data' ] ) && ( attributes.displayCategories ) && (
-									<div className={ `${ this.props.className }__categories` } dangerouslySetInnerHTML={ { __html: post[ 'thyself/category_data' ] } } />
+				<div className={ this.props.className }
+					style={ {
+						backgroundColor: attributes.bgColor,
+					} } >
+					<div className={ `${ this.props.className }__cover` }
+						style={ {
+							backgroundImage: attributes.bgImgURL ?
+								`url(${ attributes.bgImgURL })` :
+								'none',
+							opacity: attributes.bgOpacity,
+						} } />
+					<ul
+						className={ classnames( `${ this.props.className }__container`, {
+							'is-horizontal': postLayout === 'horizontal',
+							'is-vertical': postLayout === 'vertical',
+							[ `columns-${ columns }` ]: postLayout !== '',
+						} ) }
+					>
+						{ displayPosts.map( ( post, i ) => (
+							<li key={ i }>
+								{ ( post[ 'thyself/featured_image_src' ] ) && ( attributes.displayFeaturedImage ) && (
+									<figure className={ `${ this.props.className }__thumbnail` }>
+										<img src={ post[ 'thyself/featured_image_src' ] } alt={ decodeEntities( post.title.rendered.trim() ) } />
+									</figure>
 								) }
 
-							</div>
-						</li>
-					)
-					) }
-				</ul>
+								<div className={ `${ this.props.className }__content` }>
+									<h3 className={ `${ this.props.className }__title` }>
+										<a href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( post.title.rendered.trim() ) || __( '(Untitled)' ) }</a>
+									</h3>
+
+									<div className={ `${ this.props.className }__meta` }>
+										{ displayPostDate && post.date_gmt &&
+										<time dateTime={ moment( post.date_gmt ).utc().format() } className={ `${ this.props.className }__post-date` }>
+											{ moment( post.date_gmt ).local().format( 'MMMM DD, Y' ) }
+										</time> }
+									</div>
+
+									<div className={ `${ this.props.className }__summary` }>
+										{ displayPostExcerpt && post.excerpt.raw &&
+										<p className={ `${ this.props.className }__excerpt` }>
+											{ post.excerpt.raw }&nbsp;
+											{ displayReadMore && readMoreText && ( <a className={ `${ this.props.className }__read-more` } href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( readMoreText ) || __( '..' ) }</a> ) }
+										</p>
+										}
+									</div>
+
+									{ ( post[ 'thyself/category_data' ] ) && ( attributes.displayCategories ) && (
+										<div className={ `${ this.props.className }__categories` } dangerouslySetInnerHTML={ { __html: post[ 'thyself/category_data' ] } } />
+									) }
+
+								</div>
+							</li>
+						)
+						) }
+					</ul>
+				</div>
 
 			</Fragment>
 		);
