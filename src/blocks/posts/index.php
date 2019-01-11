@@ -52,7 +52,7 @@ function register_block_thyself_posts() {
 				),
 				'postLayout'           => array(
 					'type'    => 'string',
-					'default' => 'list',
+					'default' => '',
 				),
 				'columns'              => array(
 					'type'    => 'number',
@@ -193,8 +193,21 @@ function render_block_thyself_posts( $attributes ) {
 		$list_items_markup .= '</div></li>';
 	}
 
-	$base_class      = "wp-block-thyself-posts__cover";
-	$container_class = "wp-block-thyself-posts__container is-{$attributes['postLayout']} columns-{$attributes['columns']}";
+	$base_class = 'wp-block-thyself-posts__cover';
+
+	if ( '' !== $attributes['postLayout'] ) {
+		$post_layout = "is-{$attributes['postLayout']}";
+	}
+
+	if ( '' !== $attributes['columns'] ) {
+		$columns = "columns-{$attributes['columns']}";
+	}
+
+	$container_class = sprintf(
+		'wp-block-thyself-posts__container %1$s %2$s',
+		$post_layout,
+		$columns
+	);
 
 	$base_styles = '<style>';
 	if ( isset( $attributes['bgColor'] ) ) {
@@ -210,10 +223,16 @@ function render_block_thyself_posts( $attributes ) {
 	}
 	$base_styles .= '</style>';
 
+	if ( '' !== $attributes['align'] ) {
+		$alignment = "align{$attributes['align']}";
+	} else {
+		$alignment = '';
+	}
+
 	$block_content = sprintf(
-		'%1$s<div class="wp-block-thyself-posts align%2$s"><div class="%3$s"></div><ul class="%4$s">%5$s</ul></div>',
+		'%1$s<div class="wp-block-thyself-posts %2$s"><div class="%3$s"></div><ul class="%4$s">%5$s</ul></div>',
 		$base_styles,
-		$attributes['align'],
+		$alignment,
 		esc_attr( $base_class ),
 		esc_attr( $container_class ),
 		$list_items_markup

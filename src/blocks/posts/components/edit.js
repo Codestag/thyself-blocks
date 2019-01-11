@@ -83,7 +83,7 @@ class PostsGridEdit extends Component {
 				setAttributes( { bgImgURL: undefined, imgID: undefined } );
 				return;
 			}
-			setAttributes( { bgImgURL: media.url, imgID: media.id } );
+			setAttributes( { bgImgURL: media.url, imgId: media.id } );
 		};
 
 		const inspectorControls = (
@@ -225,7 +225,7 @@ class PostsGridEdit extends Component {
 						<MediaUpload
 							onSelect={ onSelectImage }
 							type="image"
-							value={ attributes.imgID }
+							value={ attributes.imgId }
 							render={ ( { open } ) => (
 								<IconButton
 									className="components-toolbar__control"
