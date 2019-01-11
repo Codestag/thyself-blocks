@@ -157,7 +157,10 @@ function render_block_thyself_posts( $attributes ) {
 		);
 
 		if ( isset( $attributes['displayPostExcerpt'] ) && $attributes['displayPostExcerpt'] ) {
-			$excerpt = sprintf( '<p class="wp-block-thyself-posts__excerpt">%1$s &nbsp;', get_post_field( 'post_excerpt', $post_id ) );
+			$excerpt_data = get_post_field( 'post_excerpt', $post_id );
+			if ( ! empty( $excerpt_data ) ) {
+				$excerpt = sprintf( '<p class="wp-block-thyself-posts__excerpt">%1$s &nbsp;', $excerpt_data );
+			}
 
 			if ( empty( $excerpt ) ) {
 				$excerpt = sprintf( '<p class="wp-block-thyself-posts__excerpt">%1$s &nbsp;', wp_trim_words( $post->post_content, 55 ) );

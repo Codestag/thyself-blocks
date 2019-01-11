@@ -282,7 +282,7 @@ class PostsGridEdit extends Component {
 									<div className={ `${ this.props.className }__summary` }>
 										{ displayPostExcerpt && post.excerpt.raw &&
 										<p className={ `${ this.props.className }__excerpt` }>
-											{ post.excerpt.raw }&nbsp;
+											{ post.excerpt.raw !== '' ? post.excerpt.raw : post.content.raw.slice( 0, 200 ).replace( /<[^>]+>/g, '' ) }&nbsp;
 											{ displayReadMore && readMoreText && ( <a className={ `${ this.props.className }__read-more` } href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( readMoreText ) || __( '..' ) }</a> ) }
 										</p>
 										}
@@ -319,6 +319,7 @@ export default withSelect( ( select, props ) => {
 			'link',
 			'title',
 			'excerpt',
+			'content',
 			'featured_media',
 			'thyself/featured_image_src',
 			'thyself/category_data',
