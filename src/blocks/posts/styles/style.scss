@@ -100,6 +100,10 @@
 				grid-template-columns: repeat(4, 1fr);
 				grid-gap: 15px;
 			}
+
+			li {
+				margin-bottom: 0;
+			}
 		}
 	}
 
@@ -109,7 +113,7 @@
 	&__container.is-horizontal li {
 		@include media( $breakpoint__md ) {
 			display: inline-grid;
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(2, 50%);
 		}
 	}
 
