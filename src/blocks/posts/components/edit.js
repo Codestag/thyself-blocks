@@ -73,6 +73,7 @@ class PostsGridEdit extends Component {
 			bgImgURL,
 			bgOpacity,
 			imgId,
+			txtColor,
 		} = attributes;
 
 		const hasPosts = Array.isArray( latestPosts ) && latestPosts.length;
@@ -155,6 +156,11 @@ class PostsGridEdit extends Component {
 					title={ __( 'Color Settings' ) }
 					initialOpen={ false }
 					colorSettings={ [
+						{
+							value: attributes.txtColor,
+							onChange: value => setAttributes( { txtColor: value } ),
+							label: __( 'Text Color' ),
+						},
 						{
 							value: attributes.bgColor,
 							onChange: value => setAttributes( { bgColor: value } ),
@@ -249,6 +255,9 @@ class PostsGridEdit extends Component {
 							'is-vertical': postLayout === 'vertical',
 							[ `columns-${ columns }` ]: postLayout !== '',
 						} ) }
+						style={ {
+							color: attributes.txtColor,
+						} }
 					>
 						{ displayPosts.map( ( post, i ) => (
 							<li key={ i }>
