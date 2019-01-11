@@ -1,6 +1,24 @@
 .wp-block-thyself-posts {
-	list-style: none !important;
+	position: relative;
 
+	&__cover {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 1;
+		background-size: cover;
+		transform: translate3d(0, 0, 0);
+	}
+
+	&__container {
+		list-style: none !important;
+		padding: 0 !important;
+		word-break: break-word;
+		position: relative;
+		z-index: 3;
+	}
 	li {
 		margin: 0;
 	}
@@ -19,22 +37,6 @@
 		p {
 			font-size: inherit !important;
 		}
-		img {
-			width: 30px;
-			border-radius: 50%;
-			margin-right: 10px;
-		}
-		span {
-			display: inline-block;
-		}
-		span,
-		img {
-			vertical-align: middle;
-		}
-	}
-	&__author {
-		margin: 0;
-		color: currentColor;
 	}
 	&__title {
 		font-size: 30px;
@@ -46,6 +48,7 @@
 	}
 
 	&__read-more {
+		display: inline-block;
 		font-size: 0.8em !important;
 		margin: 0;
 		a {
@@ -54,17 +57,20 @@
 		}
 	}
 
-	&.is-grid {
+	&__container.is-horizontal {
+	}
+
+	&__container.is-vertical {
 		@include media($breakpoint__md) {
 			display: grid;
 			grid-gap: 80px;
 			grid-template-columns: repeat(2, 1fr);
 
-			&.columns-3 {
+			&__container.columns-3 {
 				grid-template-columns: repeat(3, 1fr);
 				grid-gap: 50px;
 			}
-			&.columns-4 {
+			&__container.columns-4 {
 				grid-template-columns: repeat(4, 1fr);
 				grid-gap: 20px;
 			}
