@@ -80,6 +80,9 @@ function register_block_thyself_posts() {
 				'bgColor'              => array(
 					'type' => 'string',
 				),
+				'txtColor'             => array(
+					'type' => 'string',
+				),
 			),
 			'render_callback' => 'render_block_thyself_posts',
 		)
@@ -196,6 +199,10 @@ function render_block_thyself_posts( $attributes ) {
 	$base_styles = '<style>';
 	if ( isset( $attributes['bgColor'] ) ) {
 		$base_styles .= ".wp-block-thyself-posts { background-color: {$attributes['bgColor']} }";
+	}
+
+	if ( isset( $attributes['txtColor'] ) ) {
+		$base_styles .= " .wp-block-thyself-posts__container { color: {$attributes['txtColor']}; } ";
 	}
 	if ( isset( $attributes['bgImgURL'] ) ) {
 		$base_styles .= ".wp-block-thyself-posts__cover { background-image: url('{$attributes['bgImgURL']}'); opacity: {$attributes['bgOpacity']}; }";
