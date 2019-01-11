@@ -19,23 +19,31 @@
 		word-break: break-word;
 		position: relative;
 		z-index: 3;
-		margin: 0 !important;
+		max-width: 1200px;
+		margin: 0 auto !important;
 	}
 
-	li {
+	&__container li {
 		background-color: #fff;
+		margin-bottom: 2.5em;
 	}
 
 	figure {
 		margin: 0;
 		padding: 0;
+
+		a:hover,
+		a:focus {
+			border: 0 !important;
+		}
 	}
 
 	a {
 		border-bottom: 0 !important;
 		color: inherit !important;
 
-		&:hover, &:focus {
+		&:hover,
+		&:focus {
 			border-bottom: 2px solid currentColor !important;
 		}
 	}
@@ -50,20 +58,9 @@
 
 	&__meta {
 		margin: 1em 0;
-		@include media($breakpoint__md) {
-			display: flex;
-			justify-content: space-between;
-		}
 		font-size: 0.8em;
 		p {
 			font-size: inherit !important;
-		}
-		span {
-			display: inline-block;
-		}
-		span,
-		img {
-			vertical-align: middle;
 		}
 	}
 
@@ -71,10 +68,11 @@
 		margin: 0;
 	}
 
-	&__thumbnail img, & &__thumbnail a img {
-		max-width: 100%;
+	&__thumbnail img,
+	& &__thumbnail a img {
+		width: 100%;
 		object-fit: cover;
-		min-height: 100%;
+		height: 100%;
 	}
 
 	&__categories a {
@@ -85,9 +83,9 @@
 
 	&__container.is-horizontal,
 	&__container.is-vertical {
-		display: grid !important;
-		grid-gap: 25px;
 		@include media($breakpoint__md) {
+			display: grid !important;
+			grid-gap: 25px;
 			&.columns-2 {
 				grid-gap: 30px;
 				grid-template-columns: repeat(2, 1fr);
@@ -109,8 +107,10 @@
 	* Horizontal Layout.
 	*/
 	&__container.is-horizontal li {
-		display: inline-grid;
-		grid-template-columns: repeat(2, 1fr);
+		@include media( $breakpoint__md ) {
+			display: inline-grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	&__container.is-horizontal &__content {
@@ -123,5 +123,14 @@
 	&__container.is-vertical &__content {
 		text-align: center;
 		padding: 1em;
+	}
+
+	&__container.is-vertical figure {
+		position: relative;
+	}
+
+	&__container.is-vertical figure a {
+		display: block;
+		height: 70%;
 	}
 }
