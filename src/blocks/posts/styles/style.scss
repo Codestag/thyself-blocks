@@ -1,5 +1,7 @@
 .wp-block-thyself-posts {
 	position: relative;
+	margin: 1em 0;
+	padding: 2em 1.5em;
 
 	&__cover {
 		position: absolute;
@@ -17,27 +19,33 @@
 		word-break: break-word;
 		position: relative;
 		z-index: 3;
-
-		@include media(max-width 1000px) {
-			margin: 0 !important;
-		}
+		margin: 0 !important;
 	}
 
 	li {
-		margin: 0;
+		background-color: #fff;
 	}
 
 	figure {
-		margin: 0 0 1em 0;
+		margin: 0;
 		padding: 0;
 	}
 
+	a {
+		border-bottom: 0 !important;
+		color: inherit !important;
+
+		&:hover, &:focus {
+			border-bottom: 2px solid currentColor !important;
+		}
+	}
+
 	&__excerpt {
-		margin: 1.5em 0 1em;
+		margin: 1.5em 0 1.5em;
 	}
 
 	&__title {
-		margin: 0 0 1em;
+		margin: 1.5em 0 1.5em;
 	}
 
 	&__meta {
@@ -49,12 +57,6 @@
 		font-size: 0.8em;
 		p {
 			font-size: inherit !important;
-		}
-		img {
-			width: 30px !important;
-			display: inline-block !important;
-			border-radius: 50%;
-			margin-right: 10px;
 		}
 		span {
 			display: inline-block;
@@ -69,24 +71,57 @@
 		margin: 0;
 	}
 
-	&__container.is-horizontal {
+	&__thumbnail img, & &__thumbnail a img {
+		max-width: 100%;
+		object-fit: cover;
+		min-height: 100%;
 	}
 
-	&__container.is-vertical {
-		@include media($breakpoint__md) {
-			display: grid !important;
-			grid-gap: 50px;
-			grid-template-columns: repeat(2, 1fr);
+	&__categories a {
+		font-size: 0.85em;
+		letter-spacing: 2px;
+		opacity: 0.75;
+	}
 
-			&__container.columns-3 {
-				grid-template-columns: repeat(3, 1fr);
-				grid-gap: 50px;
+	&__container.is-horizontal,
+	&__container.is-vertical {
+		display: grid !important;
+		grid-gap: 25px;
+		@include media($breakpoint__md) {
+			&.columns-2 {
+				grid-gap: 30px;
+				grid-template-columns: repeat(2, 1fr);
 			}
-			&__container.columns-4 {
-				grid-template-columns: repeat(4, 1fr);
+
+			&.columns-3 {
+				grid-template-columns: repeat(3, 1fr);
 				grid-gap: 20px;
+			}
+
+			&.columns-4 {
+				grid-template-columns: repeat(4, 1fr);
+				grid-gap: 15px;
 			}
 		}
 	}
 
+	/**
+	* Horizontal Layout.
+	*/
+	&__container.is-horizontal li {
+		display: inline-grid;
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	&__container.is-horizontal &__content {
+		padding: 1em;
+	}
+
+	/**
+	* Vertical Layout.
+	*/
+	&__container.is-vertical &__content {
+		text-align: center;
+		padding: 1em;
+	}
 }
