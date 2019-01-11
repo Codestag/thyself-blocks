@@ -268,16 +268,16 @@ class PostsGridEdit extends Component {
 								) }
 
 								<div className={ `${ this.props.className }__content` }>
-									<h3 className={ `${ this.props.className }__title` }>
-										<a href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( post.title.rendered.trim() ) || __( '(Untitled)' ) }</a>
-									</h3>
-
 									<div className={ `${ this.props.className }__meta` }>
 										{ displayPostDate && post.date_gmt &&
 										<time dateTime={ moment( post.date_gmt ).utc().format() } className={ `${ this.props.className }__post-date` }>
 											{ moment( post.date_gmt ).local().format( 'MMMM DD, Y' ) }
 										</time> }
 									</div>
+
+									<h3 className={ `${ this.props.className }__title` }>
+										<a href={ post.link } target="_blank" rel="noopener noreferrer">{ decodeEntities( post.title.rendered.trim() ) || __( '(Untitled)' ) }</a>
+									</h3>
 
 									<div className={ `${ this.props.className }__summary` }>
 										{ displayPostExcerpt && post.excerpt.raw &&

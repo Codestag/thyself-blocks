@@ -137,13 +137,6 @@ function render_block_thyself_posts( $attributes ) {
 
 		$list_items_markup .= '<div class="wp-block-thyself-posts__content">';
 
-		// Display post title.
-		$list_items_markup .= sprintf(
-			'<h3 class="wp-block-thyself-posts__title"><a href="%1$s">%2$s</a></h3>',
-			esc_url( get_permalink( $post_id ) ),
-			esc_html( $title )
-		);
-
 		$date_markup = '';
 
 		if ( isset( $attributes['displayPostDate'] ) && $attributes['displayPostDate'] ) {
@@ -155,6 +148,13 @@ function render_block_thyself_posts( $attributes ) {
 		}
 
 		$list_items_markup .= '<div class="wp-block-thyself-posts__meta">' . $date_markup . '</div>';
+
+		// Display post title.
+		$list_items_markup .= sprintf(
+			'<h3 class="wp-block-thyself-posts__title"><a href="%1$s">%2$s</a></h3>',
+			esc_url( get_permalink( $post_id ) ),
+			esc_html( $title )
+		);
 
 		if ( isset( $attributes['displayPostExcerpt'] ) && $attributes['displayPostExcerpt'] ) {
 			$excerpt = sprintf( '<p class="wp-block-thyself-posts__excerpt">%1$s &nbsp;', get_post_field( 'post_excerpt', $post_id ) );
