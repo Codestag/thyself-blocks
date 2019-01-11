@@ -193,25 +193,27 @@ function render_block_thyself_posts( $attributes ) {
 		$list_items_markup .= '</div></li>';
 	}
 
-	$base_class = 'wp-block-thyself-posts__cover';
-	$container_class = "wp-block-thyself-posts__container align{$attributes['align']} is-{$attributes['postLayout']} columns-{$attributes['columns']}";
+	$base_class      = "wp-block-thyself-posts__cover";
+	$container_class = "wp-block-thyself-posts__container is-{$attributes['postLayout']} columns-{$attributes['columns']}";
 
 	$base_styles = '<style>';
 	if ( isset( $attributes['bgColor'] ) ) {
-		$base_styles .= ".wp-block-thyself-posts { background-color: {$attributes['bgColor']} }";
+		$base_styles .= " .wp-block-thyself-posts { background-color: {$attributes['bgColor']}; } ";
 	}
 
 	if ( isset( $attributes['txtColor'] ) ) {
 		$base_styles .= " .wp-block-thyself-posts__container { color: {$attributes['txtColor']}; } ";
 	}
+
 	if ( isset( $attributes['bgImgURL'] ) ) {
-		$base_styles .= ".wp-block-thyself-posts__cover { background-image: url('{$attributes['bgImgURL']}'); opacity: {$attributes['bgOpacity']}; }";
+		$base_styles .= " .wp-block-thyself-posts__cover { background-image: url('{$attributes['bgImgURL']}'); opacity: {$attributes['bgOpacity']}; } ";
 	}
 	$base_styles .= '</style>';
 
 	$block_content = sprintf(
-		'%1$s<div class="wp-block-thyself-posts"><div class="%2$s"></div><ul class="%3$s">%4$s</ul></div>',
+		'%1$s<div class="wp-block-thyself-posts align%2$s"><div class="%3$s"></div><ul class="%4$s">%5$s</ul></div>',
 		$base_styles,
+		$attributes['align'],
 		esc_attr( $base_class ),
 		esc_attr( $container_class ),
 		$list_items_markup
