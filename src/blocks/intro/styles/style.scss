@@ -20,7 +20,10 @@
 		position: relative;
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 70px;
+		padding: 20px;
+		@include media($breakpoint__md) {
+			padding: 60px;
+		}
 	}
 
 	.bg-box {
@@ -34,9 +37,9 @@
 
 	.content {
 		// padding: 20px;
-		display: grid;
-		grid-gap: 15px;
 		@include media($breakpoint__md) {
+			display: grid;
+			grid-gap: 15px;
 			grid-template-columns: 1fr 1fr;
 		}
 	}
