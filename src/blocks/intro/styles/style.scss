@@ -61,6 +61,7 @@
 	}
 
 	&__content {
+		margin-top: 0;
 		color: inherit;
 		margin-bottom: 2em;
 	}
@@ -68,8 +69,8 @@
 	&__link.thyself-button {
 		background-color: #000;
 		color: #fff;
-		padding: 10px 15px;
-		border-bottom: none;
+		padding: 10px 15px !important;
+		border-bottom: none !important;
 	}
 
 	&__link.thyself-button:hover,
