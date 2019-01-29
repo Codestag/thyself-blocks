@@ -1,8 +1,7 @@
 /**
  * BLOCK: Section
  *
- * Registering a basic block with Gutenberg.
- * Simple block, renders and saves the same content without any interactivity.
+ * Section block, creates a block with MediaUpload & InnerBlocks component.
  */
 
 // External dependencies.

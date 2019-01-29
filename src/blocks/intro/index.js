@@ -1,8 +1,7 @@
 /**
  * BLOCK: Intro
  *
- * Registering a basic block with Gutenberg.
- * Simple block, renders and saves the same content without any interactivity.
+ * Intro block, creates a block with a single heading, text and button on top a background element.
  */
 
 // External dependencies.

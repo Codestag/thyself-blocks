@@ -1,8 +1,7 @@
 /**
  * BLOCK: Posts
  *
- * Registering a basic block with Gutenberg.
- * Simple block, renders and saves the same content without any interactivity.
+ * Posts block, creates a block with posts grid & customization options..
  */
 
 //  Import Styles.
