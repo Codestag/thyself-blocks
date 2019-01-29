@@ -4,6 +4,9 @@ Content blocks for building beautiful pages with [Thyself](https://codestag.com/
 
 ## Blocks
 Check out our live demo for Block usage examples at : [Thyself Demo](https://demo.codestag.com/thyself).
+ 1. Intro Block
+ 2. Posts Block
+ 3. Section Block
 
 ## Development
 1. Clone this repository..
